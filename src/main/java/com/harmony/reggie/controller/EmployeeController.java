@@ -28,6 +28,7 @@ public class EmployeeController {
      */
     @PostMapping("/login")
     public R<Employee> login(HttpServletRequest request, @RequestBody Employee employee) {
+        // @RequestBody : 用来接收前端传递给后端的json字符串中的数据的
         return employeeService.login(request,employee);
     }
 
