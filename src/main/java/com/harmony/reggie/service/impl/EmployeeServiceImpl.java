@@ -26,7 +26,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         queryWrapper.eq(Employee::getUsername,employee.getUsername());
         Employee emp = getOne(queryWrapper);
 
-        // Employee emp = employeeMapper.selectOne(queryWrapper);
+        Employee emp1 = employeeMapper.selectOne(queryWrapper);
 
         if(emp == null || !emp.getPassword().equals(password)){
             return R.error("登入失败");
@@ -37,8 +37,14 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         }
 
         request.getSession().setAttribute("employee",emp.getId());
-
+        System.out.println(R.success(emp));
         return R.success(emp);
+    }
+
+    @Override
+    public R<String> logout(HttpServletRequest request) {
+        request.getSession().removeAttribute("employee");
+        return R.success("退出成功");
     }
 
 }

@@ -31,9 +31,13 @@ public class EmployeeController {
         return employeeService.login(request,employee);
     }
 
+    /**
+     * 员工退出
+     * @param request
+     * @return
+     */
     @PostMapping("/logout")
     public R<String> logout(HttpServletRequest request) {
-        request.getSession().removeAttribute("employee");
-        return R.success("退出成功");
+        return employeeService.logout(request);
     }
 }
