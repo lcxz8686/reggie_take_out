@@ -5,10 +5,7 @@ import com.harmony.reggie.entity.Employee;
 import com.harmony.reggie.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -40,5 +37,15 @@ public class EmployeeController {
     @PostMapping("/logout")
     public R<String> logout(HttpServletRequest request) {
         return employeeService.logout(request);
+    }
+
+    /**
+     * 新增员工
+     * @param employee
+     * @return
+     */
+    @PostMapping
+    public R<String> save(HttpServletRequest request, @RequestBody Employee employee) {
+        return employeeService.save(request,employee);
     }
 }

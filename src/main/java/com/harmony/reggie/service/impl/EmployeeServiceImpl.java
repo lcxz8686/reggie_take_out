@@ -11,12 +11,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 @Service
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> implements EmployeeService {
 
     @Autowired
     private EmployeeMapper employeeMapper;
+
+    @Autowired
+    private EmployeeService employeeService;
 
     @Override
     public R<Employee> login(HttpServletRequest request, Employee employee) {
@@ -52,6 +56,24 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     public R<String> logout(HttpServletRequest request) {
         request.getSession().removeAttribute("employee");
         return R.success("退出成功");
+    }
+
+    @Override
+    public R<String> save(HttpServletRequest request, Employee employee) {
+        //设置初始密码123456，需要进行md5加密处理
+        employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
+
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());
+
+        //获得当前登录用户的id
+        Long empId = (Long) request.getSession().getAttribute("employee");
+
+        employee.setCreateUser(empId);
+        employee.setUpdateUser(empId);
+
+        employeeMapper.insert(employee);
+        return R.success("新增员工成功");
     }
 
 }
