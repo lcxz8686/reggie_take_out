@@ -90,9 +90,11 @@
           </template>
         </el-table-column>
       </el-table>
+      <!-- page-sizes 调小为了方便测试 -->
+      <!-- 刷新缓存 ctrl+f5-->
       <el-pagination
         class="pageList"
-        :page-sizes="[10, 20, 30, 40]"
+        :page-sizes="[3, 6, 9, 12]"
         :page-size="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="counts"
@@ -118,7 +120,7 @@
              input: '',
              counts: 0,
              page: 1,
-             pageSize: 10,
+             pageSize: 3,
              tableData : [],
              id : '',
              status : '',

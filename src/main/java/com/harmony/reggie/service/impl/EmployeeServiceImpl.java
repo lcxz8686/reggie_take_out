@@ -1,11 +1,13 @@
 package com.harmony.reggie.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.harmony.reggie.common.R;
 import com.harmony.reggie.entity.Employee;
 import com.harmony.reggie.mapper.EmployeeMapper;
 import com.harmony.reggie.service.EmployeeService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -74,6 +76,27 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
         employeeMapper.insert(employee);
         return R.success("新增员工成功");
+    }
+
+    @Override
+    public R<Page> page(int page, int pageSize, String name) {
+
+        // 构造分页构造器
+        Page pageInfo = new Page(page, pageSize);
+
+        // 构造条件构造器
+        LambdaQueryWrapper<Employee> queryWrapper = new LambdaQueryWrapper();
+
+        // 添加过滤条件(不为空就添加)
+        queryWrapper.like(StringUtils.isNotEmpty(name), Employee::getName, name);
+
+        // 添加排序
+        queryWrapper.orderByDesc(Employee::getUpdateTime);
+
+        // 执行查询
+        employeeMapper.selectPage(pageInfo, queryWrapper);
+
+        return R.success(pageInfo);
     }
 
 }

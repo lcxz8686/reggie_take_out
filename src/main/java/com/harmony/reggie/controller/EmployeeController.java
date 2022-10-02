@@ -1,5 +1,6 @@
 package com.harmony.reggie.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.harmony.reggie.common.R;
 import com.harmony.reggie.entity.Employee;
 import com.harmony.reggie.service.EmployeeService;
@@ -47,5 +48,18 @@ public class EmployeeController {
     @PostMapping
     public R<String> save(HttpServletRequest request, @RequestBody Employee employee) {
         return employeeService.save(request,employee);
+    }
+
+    /**
+     * 员工信息分页查询
+     * @param page
+     * @param pageSize
+     * @param name
+     * @return
+     */
+    @GetMapping("/page")
+    public R<Page> page(int page, int pageSize, String name) {
+        log.info("page = {},pageSize = {},name = {}", page, pageSize, name);
+        return employeeService.page(page, pageSize, name);
     }
 }
