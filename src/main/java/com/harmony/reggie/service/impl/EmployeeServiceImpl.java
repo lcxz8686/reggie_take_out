@@ -83,19 +83,14 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
         // 构造分页构造器
         Page pageInfo = new Page(page, pageSize);
-
         // 构造条件构造器
         LambdaQueryWrapper<Employee> queryWrapper = new LambdaQueryWrapper();
-
         // 添加过滤条件(不为空就添加)
         queryWrapper.like(StringUtils.isNotEmpty(name), Employee::getName, name);
-
         // 添加排序
         queryWrapper.orderByDesc(Employee::getUpdateTime);
-
         // 执行查询
         employeeMapper.selectPage(pageInfo, queryWrapper);
-
         return R.success(pageInfo);
     }
 
