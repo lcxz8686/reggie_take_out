@@ -62,4 +62,29 @@ public class EmployeeController {
         log.info("page = {},pageSize = {},name = {}", page, pageSize, name);
         return employeeService.page(page, pageSize, name);
     }
+
+    /**
+     * 根据 ID 来修改员工信息
+     * @param employee
+     * @return
+     */
+    @PutMapping
+    public R<String> updateInfo(HttpServletRequest request,@RequestBody Employee employee) {
+        return employeeService.updateInfo(request, employee);
+    }
+
+    /**
+     * 查询员工信息
+     * @param id
+     * @return
+     * @PathVariable id在请求路径里面
+     */
+    @GetMapping("/{id}")
+    public R<Employee> getEmployeeById(@PathVariable Long id) {
+        Employee employee = employeeService.getById(id);
+        if (employee != null) {
+            return R.success(employee);
+        }
+        return R.error("没有查询出来！");
+    }
 }

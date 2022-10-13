@@ -21,9 +21,6 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Autowired
     private EmployeeMapper employeeMapper;
 
-    @Autowired
-    private EmployeeService employeeService;
-
     @Override
     public R<Employee> login(HttpServletRequest request, Employee employee) {
         // 1. 将页面提交的密码password进行md5加密处理, 得到加密后的字符串
@@ -92,6 +89,16 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         // 执行查询
         employeeMapper.selectPage(pageInfo, queryWrapper);
         return R.success(pageInfo);
+    }
+
+    @Override
+    public R<String> updateInfo(HttpServletRequest request, Employee employee) {
+        Long empId = (Long)request.getSession().getAttribute("employee");
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(empId);
+        employeeMapper.updateById(employee);
+        System.out.println(employee);
+        return R.success("员工信息修改成功！");
     }
 
 }
