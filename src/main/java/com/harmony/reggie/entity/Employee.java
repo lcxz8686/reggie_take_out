@@ -35,16 +35,18 @@ public class Employee {
     private Long status;
 
     // LocalDateTime : JDK8 线程安全
+    @TableField(fill = FieldFill.INSERT)  // 插入时填充字段
     private LocalDateTime createTime;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)  // 插入和更新时填充字段
     private LocalDateTime updateTime;
 
     // MP中用于标识非主键的字段。将数据库列与 JavaBean 中的属性进行映射，
     // fill 字段填充标记，表示在插入时自动填充
-    @TableField(fill = FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT)  // 插入时填充字段
     private Long createUser;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.INSERT_UPDATE)  // 插入和更新时填充字段
     private Long updateUser;
 
 }
