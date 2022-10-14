@@ -94,8 +94,10 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Override
     public R<String> updateInfo(HttpServletRequest request, Employee employee) {
         Long empId = (Long)request.getSession().getAttribute("employee");
-//        employee.setUpdateTime(LocalDateTime.now());
+
+        // employee.setUpdateTime(LocalDateTime.now());
         employee.setUpdateUser(empId);
+
         employeeMapper.updateById(employee);
         System.out.println(employee);
         return R.success("员工信息修改成功！");
