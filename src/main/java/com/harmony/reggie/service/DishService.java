@@ -6,6 +6,8 @@ import com.harmony.reggie.dto.DishDto;
 import com.harmony.reggie.entity.Dish;
 import com.harmony.reggie.common.R;
 
+import java.util.List;
+
 
 public interface DishService extends IService<Dish> {
 
@@ -16,4 +18,6 @@ public interface DishService extends IService<Dish> {
     R<String> updateDishWithFlavor(DishDto dishDto);
 
     R<DishDto> getDishInfoById(Long id);
+
+    R<String> deleteDish(List<Long> ids);
 }

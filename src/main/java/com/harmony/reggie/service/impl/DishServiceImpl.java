@@ -3,6 +3,7 @@ package com.harmony.reggie.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.harmony.reggie.common.CustomException;
 import com.harmony.reggie.dto.DishDto;
 import com.harmony.reggie.entity.Category;
 import com.harmony.reggie.entity.Dish;
@@ -144,5 +145,29 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
         List<DishFlavor> flavors = dishFlavorMapper.selectList(queryWrapper);
         dishDto.setFlavors(flavors);
         return R.success(dishDto);
+    }
+
+    @Override
+    @Transactional
+    public R<String> deleteDish(List<Long> ids) {
+        // 查菜品的状态，是否可以删除（）
+        LambdaQueryWrapper<Dish> dishQueryWrapper = new LambdaQueryWrapper<>();
+        dishQueryWrapper.in(Dish::getId, ids);
+        dishQueryWrapper.eq(Dish::getStatus, 1);
+
+        int count = this.count(dishQueryWrapper);
+        if(count > 0) {
+            throw new CustomException("菜品正在售卖中！不能删除！");
+        }
+
+        // 删除dish
+        dishMapper.deleteBatchIds(ids);
+
+        // 删除dish_flavor
+        LambdaQueryWrapper<DishFlavor> dfQueryWrapper = new LambdaQueryWrapper<>();
+        dfQueryWrapper.in(DishFlavor::getDishId, ids);
+
+        dishFlavorMapper.delete(dfQueryWrapper);
+        return R.success("删除菜品成功！");
     }
 }

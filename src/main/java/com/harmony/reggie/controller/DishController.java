@@ -2,13 +2,13 @@ package com.harmony.reggie.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.harmony.reggie.dto.DishDto;
-import com.harmony.reggie.entity.Dish;
-import com.harmony.reggie.service.DishFlavorService;
 import com.harmony.reggie.service.DishService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.harmony.reggie.common.R;
+
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -59,6 +59,19 @@ public class DishController {
     @GetMapping("/{id}")
     public R<DishDto> getDishInfoById(@PathVariable Long id) {
         return dishService.getDishInfoById(id);
+    }
+
+    /**
+     * 删除菜品
+     * @param ids
+     * @return
+     *
+     * @@RequestParam: 用于将请求参数区数据映射到功能处理方法的参数上
+     */
+    @DeleteMapping
+    public R<String> deleteDish(@RequestParam List<Long> ids) {
+        log.info("ids:{}",ids);
+        return dishService.deleteDish(ids);
     }
 
 }

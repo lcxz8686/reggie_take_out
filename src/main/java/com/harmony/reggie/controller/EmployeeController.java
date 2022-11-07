@@ -23,6 +23,8 @@ public class EmployeeController {
      * @param request
      * @param employee
      * @return
+     *
+     * @RequestBody: 用来接收前端传递给后端的json字符串中的数据的
      */
     @PostMapping("/login")
     public R<Employee> login(HttpServletRequest request, @RequestBody Employee employee) {
