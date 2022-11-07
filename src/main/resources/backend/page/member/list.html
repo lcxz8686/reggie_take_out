@@ -87,6 +87,17 @@
                     >
                         {{ scope.row.status == '1' ? '禁用' : '启用' }}
                     </el-button>
+
+                    <el-button
+                            type="text"
+                            size="small"
+                            class="delBut non"
+                            @click="deleteEmployeeHandle(scope.row.id)"
+                            v-if="user === 'admin'"
+                    >
+                        删除
+                    </el-button>
+
                 </template>
             </el-table-column>
         </el-table>
@@ -185,6 +196,27 @@
                             this.handleQuery()
                         }
                     }).catch(err => {
+                        this.$message.error('请求出错了：' + err)
+                    })
+                })
+            },
+
+            // 删除员工
+            deleteEmployeeHandle(rowid) {
+                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                    'confirmButtonText': '确定',
+                    'cancelButtonText': '取消',
+                    'type': 'warning'
+                }).then(() => {
+                    this.id = rowid
+                    deleteEmployee(this.id).then(res => {
+                            if (res.code === 1) {
+                                this.$message.success('删除成功！')
+                                this.handleQuery()
+                            } else {
+                                this.$message.error(res.msg || '操作失败')
+                            }
+                        }).catch(err => {
                         this.$message.error('请求出错了：' + err)
                     })
                 })

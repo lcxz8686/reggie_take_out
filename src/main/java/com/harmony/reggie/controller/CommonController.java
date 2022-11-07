@@ -65,10 +65,10 @@ public class CommonController {
     @GetMapping("/download")
     public void downLoad(String name, HttpServletResponse response) {
         try {
-            //输入流，通过输入流读取文件内容
+            // 输入流，通过输入流读取文件内容
             FileInputStream fileInputStream = new FileInputStream(new File(basePath + name));
 
-            //输出流，通过输出流将文件写回浏览器
+            // 输出流，通过输出流将文件写回浏览器
             ServletOutputStream outputStream = response.getOutputStream();
 
             response.setContentType("image/jpeg");

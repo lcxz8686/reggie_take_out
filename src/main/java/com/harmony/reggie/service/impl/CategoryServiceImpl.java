@@ -15,6 +15,8 @@ import com.harmony.reggie.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
 
@@ -68,5 +70,19 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         queryWrapper.orderByAsc(Category::getSort);
         categoryMapper.selectPage(pageInfo, queryWrapper);
         return R.success(pageInfo);
+    }
+
+
+    @Override
+    public R<List<Category>> getListInfo(Category category) {
+
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(category.getType() != null, Category::getType, category.getType());
+
+        queryWrapper.orderByAsc(Category::getSort).orderByDesc(Category::getUpdateTime);
+
+        List<Category> categories = categoryMapper.selectList(queryWrapper);
+
+        return R.success(categories);
     }
 }

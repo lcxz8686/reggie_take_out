@@ -13,9 +13,13 @@ public interface EmployeeService extends IService<Employee> {
 
     R<String> logout(HttpServletRequest request);
 
-    R<String> save(HttpServletRequest request, Employee employee);
+    R<String> updateEmployeeById(HttpServletRequest request, Employee employee);
 
-    R<Page> page(int page, int pageSize, String name);
+    R<String> saveEmployee(HttpServletRequest request, Employee employee);
 
-    R<String> updateInfo(HttpServletRequest request, Employee employee);
+    R<Page> pageByEmployee(int page, int pageSize, String name);
+
+    R<String> deleteEmployee(HttpServletRequest request, Long id);
+
+    R<Employee> getEmployeeById(Long id);
 }

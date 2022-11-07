@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.harmony.reggie.common.R;
+import com.harmony.reggie.entity.Dish;
 import com.harmony.reggie.entity.Employee;
 import com.harmony.reggie.mapper.EmployeeMapper;
 import com.harmony.reggie.service.EmployeeService;
@@ -57,7 +58,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     }
 
     @Override
-    public R<String> save(HttpServletRequest request, Employee employee) {
+    public R<String> saveEmployee(HttpServletRequest request, Employee employee) {
         //设置初始密码123456，需要进行md5加密处理
         employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
 //
@@ -75,7 +76,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     }
 
     @Override
-    public R<Page> page(int page, int pageSize, String name) {
+    public R<Page> pageByEmployee(int page, int pageSize, String name) {
 
         // 构造分页构造器
         Page pageInfo = new Page(page, pageSize);
@@ -91,7 +92,24 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     }
 
     @Override
-    public R<String> updateInfo(HttpServletRequest request, Employee employee) {
+    public R<String> deleteEmployee(HttpServletRequest request, Long id) {
+        LambdaQueryWrapper<Employee> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Employee::getId, id);
+        super.removeById(id);
+        return R.success("删除成功");
+    }
+
+    @Override
+    public R<Employee> getEmployeeById(Long id) {
+        Employee employee = employeeMapper.selectById(id);
+        if (employee != null) {
+            return R.success(employee);
+        }
+        return R.error("没有查询出来！");
+    }
+
+    @Override
+    public R<String> updateEmployeeById(HttpServletRequest request, Employee employee) {
         Long empId = (Long)request.getSession().getAttribute("employee");
 
         // employee.setUpdateTime(LocalDateTime.now());

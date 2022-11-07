@@ -46,8 +46,8 @@ public class EmployeeController {
      * @return
      */
     @PostMapping
-    public R<String> save(HttpServletRequest request, @RequestBody Employee employee) {
-        return employeeService.save(request,employee);
+    public R<String> saveEmployee(HttpServletRequest request, @RequestBody Employee employee) {
+        return employeeService.saveEmployee(request,employee);
     }
 
     /**
@@ -58,9 +58,9 @@ public class EmployeeController {
      * @return
      */
     @GetMapping("/page")
-    public R<Page> page(int page, int pageSize, String name) {
+    public R<Page> pageByEmployee(int page, int pageSize, String name) {
         log.info("page = {},pageSize = {},name = {}", page, pageSize, name);
-        return employeeService.page(page, pageSize, name);
+        return employeeService.pageByEmployee(page, pageSize, name);
     }
 
     /**
@@ -69,8 +69,8 @@ public class EmployeeController {
      * @return
      */
     @PutMapping
-    public R<String> updateInfo(HttpServletRequest request,@RequestBody Employee employee) {
-        return employeeService.updateInfo(request, employee);
+    public R<String> updateEmployeeById(HttpServletRequest request,@RequestBody Employee employee) {
+        return employeeService.updateEmployeeById(request, employee);
     }
 
     /**
@@ -81,10 +81,17 @@ public class EmployeeController {
      */
     @GetMapping("/{id}")
     public R<Employee> getEmployeeById(@PathVariable Long id) {
-        Employee employee = employeeService.getById(id);
-        if (employee != null) {
-            return R.success(employee);
-        }
-        return R.error("没有查询出来！");
+        return employeeService.getEmployeeById(id);
+    }
+
+    /**
+     * 删除员工
+     * @param request
+     * @param id
+     * @return
+     */
+    @DeleteMapping
+    public R<String> deleteEmployee(HttpServletRequest request, Long id) {
+        return employeeService.deleteEmployee(request,id);
     }
 }

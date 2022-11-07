@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 分类管理
  */
@@ -20,7 +22,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     /**
-     * 新增菜品
+     * 新增分类
      * @param category
      * @return
      */
@@ -30,7 +32,7 @@ public class CategoryController {
     }
 
     /**
-     * 删除菜品,根据id删除分类，删除之前做一下判断，是否有关联
+     * 删除分类,根据id删除分类，删除之前做一下判断，是否有关联
      * @param id
      * @return
      */
@@ -40,7 +42,7 @@ public class CategoryController {
     }
 
     /**
-     * 修改菜品
+     * 修改分类
      * @param category
      * @return
      */
@@ -50,7 +52,7 @@ public class CategoryController {
     }
 
     /**
-     * 分页
+     * 分类管理-分页查询
      * @param page
      * @param pageSize
      * @return
@@ -60,4 +62,13 @@ public class CategoryController {
         return categoryService.pageSortInfo(page, pageSize);
     }
 
+    /**
+     * 根据条件查询分类数据
+     * @param category
+     * @return
+     */
+    @GetMapping("/list")
+    public R<List<Category>> getCategoryList(Category category) {
+        return categoryService.getListInfo(category);
+    }
 }
