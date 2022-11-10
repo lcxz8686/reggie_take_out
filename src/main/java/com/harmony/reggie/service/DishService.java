@@ -20,4 +20,6 @@ public interface DishService extends IService<Dish> {
     R<DishDto> getDishInfoById(Long id);
 
     R<String> deleteDish(List<Long> ids);
+
+    R<String> sellStatus(Integer status, List<Long> ids);
 }

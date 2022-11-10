@@ -74,5 +74,18 @@ public class DishController {
         return dishService.deleteDish(ids);
     }
 
+    /**
+     * 起售菜品、停售菜品
+     * @param status
+     * @param ids
+     * @return
+     *
+     * http://localhost:8080/dish/status/0?ids=1413384757047271425
+     */
+    @PostMapping("/status/{status}")
+    public R<String> sellStatus(@PathVariable("status") Integer status, @RequestParam List<Long> ids) {
+        return dishService.sellStatus(status, ids);
+    }
+
 }
 

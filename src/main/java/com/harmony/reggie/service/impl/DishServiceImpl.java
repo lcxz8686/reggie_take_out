@@ -170,4 +170,21 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
         dishFlavorMapper.delete(dfQueryWrapper);
         return R.success("删除菜品成功！");
     }
+
+    @Override
+    public R<String> sellStatus(Integer status, List<Long> ids) {
+        LambdaQueryWrapper<Dish> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.in(ids != null, Dish::getId, ids);
+
+        List<Dish> list = dishMapper.selectList(queryWrapper);
+
+        for (Dish dish : list) {
+            if (dish != null) {
+                dish.setStatus(status);
+                dishMapper.updateById(dish);
+            }
+        }
+
+        return R.success("售卖状态修改成功");
+    }
 }
