@@ -187,4 +187,19 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
 
         return R.success("售卖状态修改成功");
     }
+
+    @Override
+    public R<List<Dish>> getDishInfoByCondition(Dish dish) {
+        LambdaQueryWrapper<Dish> queryWrapper = new LambdaQueryWrapper<>();
+        // Category 分类信息（type为1表示菜品, 2表示套餐）
+        queryWrapper.eq(dish.getCategoryId() != null, Dish::getCategoryId, dish.getCategoryId());
+
+        // 只展示起售的菜品!
+        queryWrapper.eq(Dish::getStatus, 1);
+
+        queryWrapper.orderByAsc(Dish::getSort).orderByDesc(Dish::getUpdateTime);
+        List<Dish> list = dishMapper.selectList(queryWrapper);
+
+        return R.success(list);
+    }
 }

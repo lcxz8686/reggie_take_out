@@ -2,6 +2,7 @@ package com.harmony.reggie.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.harmony.reggie.dto.DishDto;
+import com.harmony.reggie.entity.Dish;
 import com.harmony.reggie.service.DishService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,5 +88,16 @@ public class DishController {
         return dishService.sellStatus(status, ids);
     }
 
+
+    /**
+     * 根据条件查询对应的菜品数据(菜系条件)
+     * http://localhost:8080/dish/list?categoryId=1397844263642378242
+     * @param dish
+     * @return
+     */
+    @GetMapping("/list")
+    public R<List<Dish>> getDishInfoByCondition(Dish dish) {
+        return dishService.getDishInfoByCondition(dish);
+    }
 }
 
