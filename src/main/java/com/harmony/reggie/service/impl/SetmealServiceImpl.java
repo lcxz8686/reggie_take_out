@@ -5,12 +5,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.harmony.reggie.common.CustomException;
 import com.harmony.reggie.common.R;
-import com.harmony.reggie.dto.SetmealDto;
+import com.harmony.reggie.dto.SetmealDishDto;
 import com.harmony.reggie.entity.*;
 import com.harmony.reggie.mapper.CategoryMapper;
 import com.harmony.reggie.mapper.SetmealDishMapper;
 import com.harmony.reggie.mapper.SetmealMapper;
 import com.harmony.reggie.service.SetmealService;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +37,10 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
 
     @Override
     @Transactional
-    public R<String> saveSetmeal(SetmealDto setmealDto) {
+    public R<String> saveSetmeal(SetmealDishDto setmealDto) {
 
         this.save(setmealDto);
 
-        //
         List<SetmealDish> setmealDishes = setmealDto.getSetmealDishes();
         setmealDishes.stream().map((item) -> {
             item.setSetmealId(setmealDto.getId());
@@ -57,7 +57,7 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
     @Override
     public R<Page> pageBySetmeal(int page, int pageSize, String name) {
         Page<Setmeal> mealPage = new Page<>(page, pageSize);
-        Page<SetmealDto> mealDtoPage = new Page<>();
+        Page<SetmealDishDto> mealDtoPage = new Page<>();
 
         LambdaQueryWrapper<Setmeal> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(name != null, Setmeal::getName, name);
@@ -70,8 +70,8 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
         List<Setmeal> records = mealPage.getRecords();
 
         // 处理 records
-        List<SetmealDto> list = records.stream().map((item) -> {
-            SetmealDto setmealDto = new SetmealDto();
+        List<SetmealDishDto> list = records.stream().map((item) -> {
+            SetmealDishDto setmealDto = new SetmealDishDto();
             // item是一条records(list)记录，将Setmeal中的字段赋值给 setmealDto
             BeanUtils.copyProperties(item, setmealDto);
             Long categoryId = item.getCategoryId();
@@ -125,5 +125,51 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
 
         setmealDishMapper.delete(setmealDishQueryWrapper);
         return R.success("删除菜品成功！");
+    }
+
+    @Override
+    public R<SetmealDishDto> getSetmealDish(Long id) {
+        Setmeal setmeal = this.getById(id);
+        SetmealDishDto setmealDto = new SetmealDishDto();
+        LambdaQueryWrapper<SetmealDish> queryWrapper = new LambdaQueryWrapper();
+        //在关联表中查询，setmealdish
+        queryWrapper.eq(id != null, SetmealDish::getSetmealId, id);
+
+        if (setmeal != null) {
+            BeanUtils.copyProperties(setmeal, setmealDto);
+            List<SetmealDish> list = setmealDishMapper.selectList(queryWrapper);
+            setmealDto.setSetmealDishes(list);
+            return R.success(setmealDto);
+        }
+        return null;
+    }
+
+    @Override
+    public R<String> updateSetmeal(SetmealDishDto setmealDishDto) {
+        if (setmealDishDto==null){
+            return R.error("请求异常");
+        }
+
+        if (setmealDishDto.getSetmealDishes()==null){
+            return R.error("套餐没有菜品,请添加套餐");
+        }
+        List<SetmealDish> setmealDishes = setmealDishDto.getSetmealDishes();
+        Long setmealId = setmealDishDto.getId();
+
+        LambdaQueryWrapper<SetmealDish> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SetmealDish::getSetmealId,setmealId);
+        setmealDishMapper.delete(queryWrapper);
+
+        //为setmeal_dish表填充相关的属性
+        for (SetmealDish setmealDish : setmealDishes) {
+            setmealDish.setSetmealId(setmealId);
+        }
+        //批量把setmealDish保存到setmeal_dish表
+        for (SetmealDish setmealDish : setmealDishes) {
+            setmealDishMapper.insert(setmealDish);
+        }
+        setmealMapper.updateById(setmealDishDto);
+
+        return R.success("套餐修改成功");
     }
 }

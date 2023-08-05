@@ -1,7 +1,7 @@
 package com.harmony.reggie.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.harmony.reggie.dto.SetmealDto;
+import com.harmony.reggie.dto.SetmealDishDto;
 import com.harmony.reggie.service.SetmealDishService;
 import com.harmony.reggie.service.SetmealService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,17 +19,31 @@ public class SetmealController {
     @Autowired
     private SetmealService setmealService;
 
-    @Autowired
-    private SetmealDishService setmealDishService;
-
     /**
      * 新增套餐
-     * @param setmealDto
+     * @param setmealDishDto
      * @return
      */
     @PostMapping
-    public R<String> saveSetmeal(@RequestBody SetmealDto setmealDto) {
-        return setmealService.saveSetmeal(setmealDto);
+    public R<String> saveSetmeal(@RequestBody SetmealDishDto setmealDishDto) {
+        return setmealService.saveSetmeal(setmealDishDto);
+    }
+
+    @PutMapping
+    public R<String> updateSetmeal(@RequestBody SetmealDishDto setmealDishDto){
+
+        return setmealService.updateSetmeal(setmealDishDto);
+    }
+
+
+    /**
+     * 查询套餐
+     * @param id
+     * @return
+     */
+    @GetMapping("{id}")
+    public R<SetmealDishDto> getSetmealDish(@PathVariable("id") Long id) {
+        return setmealService.getSetmealDish(id);
     }
 
     /**
