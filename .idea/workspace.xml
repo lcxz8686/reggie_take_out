@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b768d45-86fe-4ffd-a39c-cb331bd5002e" name="变更" comment="Order">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/SetmealController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/SetmealController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/dto/SetmealDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/dto/SetmealDishDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/service/SetmealService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/service/SetmealService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/service/impl/SetmealServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/service/impl/SetmealServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/backend/page/combo/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/backend/page/combo/add.html" afterDir="false" />
-    </list>
+    <list default="true" id="0b768d45-86fe-4ffd-a39c-cb331bd5002e" name="变更" comment="【补充】套餐管理-修改功能" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -354,7 +347,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668161967172</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="【补充】套餐管理-修改功能">
+      <created>1691254094778</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1691254094778</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -396,7 +396,8 @@
     <MESSAGE value="菜品管理的删除功能！" />
     <MESSAGE value="套餐管理的CRUD" />
     <MESSAGE value="Order" />
-    <option name="LAST_COMMIT_MESSAGE" value="Order" />
+    <MESSAGE value="【补充】套餐管理-修改功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="【补充】套餐管理-修改功能" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -408,7 +409,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/SetmealController.java</url>
-          <line>33</line>
+          <line>28</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
