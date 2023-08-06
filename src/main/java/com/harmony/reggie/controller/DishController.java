@@ -88,7 +88,6 @@ public class DishController {
         return dishService.sellStatus(status, ids);
     }
 
-
     /**
      * 根据条件查询对应的菜品数据(菜系条件)
      * http://localhost:8080/dish/list?categoryId=1397844263642378242
@@ -96,7 +95,7 @@ public class DishController {
      * @return
      */
     @GetMapping("/list")
-    public R<List<Dish>> getDishInfoByCondition(Dish dish) {
+    public R<List<DishDto>> list(Dish dish){
         return dishService.getDishInfoByCondition(dish);
     }
 }

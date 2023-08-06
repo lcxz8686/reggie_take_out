@@ -23,5 +23,5 @@ public interface DishService extends IService<Dish> {
 
     R<String> sellStatus(Integer status, List<Long> ids);
 
-    R<List<Dish>> getDishInfoByCondition(Dish dish);
+    R<List<DishDto>> getDishInfoByCondition(Dish dish);
 }

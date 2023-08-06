@@ -1,7 +1,9 @@
 package com.harmony.reggie.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.harmony.reggie.dto.SetmealDishDto;
+import com.harmony.reggie.entity.Setmeal;
 import com.harmony.reggie.service.SetmealDishService;
 import com.harmony.reggie.service.SetmealService;
 import lombok.extern.slf4j.Slf4j;
@@ -82,6 +84,23 @@ public class SetmealController {
     public R<String> deleteSetmeal(@RequestParam List<Long> ids) {
         log.info("ids:{}",ids);
         return setmealService.deleteSetmeal(ids);
+    }
+
+    /**
+     * 根据条件查询套餐数据
+     * @param setmeal
+     * @return
+     */
+    @GetMapping("/list")
+    public R<List<Setmeal>> list(Setmeal setmeal){
+        LambdaQueryWrapper<Setmeal> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(setmeal.getCategoryId() != null,Setmeal::getCategoryId,setmeal.getCategoryId());
+        queryWrapper.eq(setmeal.getStatus() != null,Setmeal::getStatus,setmeal.getStatus());
+        queryWrapper.orderByDesc(Setmeal::getUpdateTime);
+
+        List<Setmeal> list = setmealService.list(queryWrapper);
+
+        return R.success(list);
     }
 
 }
