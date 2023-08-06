@@ -23,4 +23,4 @@ mybatis-plus:
 
 # 指定上传下载文件的缓存路径
 reggie:
-  path: D:\images\
+  path: D:/项目Coding/image/
