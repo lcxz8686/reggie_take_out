@@ -11,6 +11,9 @@ import com.harmony.reggie.common.R;
 
 import java.util.List;
 
+/**
+ * 菜品管理
+ */
 @RestController
 @Slf4j
 @RequestMapping("/dish")

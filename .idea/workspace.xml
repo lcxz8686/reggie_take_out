@@ -4,17 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b768d45-86fe-4ffd-a39c-cb331bd5002e" name="变更" comment="null">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/OrderDetailController.java" afterDir="false" />
+    <list default="true" id="0b768d45-86fe-4ffd-a39c-cb331bd5002e" name="变更" comment="完善项目中的功能！！！">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/AddressBookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/AddressBookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/DishController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/DishController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/EmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/EmployeeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/ShoppingCartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/ShoppingCartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/SetmealController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/SetmealController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/service/OrdersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/service/OrdersService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/service/impl/OrdersServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/harmony/reggie/service/impl/OrdersServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/front/api/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/front/api/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +80,7 @@
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.24712643",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "settings.editor.selected.configurable": "easyapi.settings.EasyApiConfigurable",
     "spring.configuration.checksum": "31ee954601a2ac7573b0782bc2eec0b0"
   },
   "keyToStringList": {
@@ -168,8 +165,6 @@
         <item itemvalue="Spring Boot.ReggieApplication" />
         <item itemvalue="JUnit.DishControllerTest.getDishInfoById" />
         <item itemvalue="JUnit.DishControllerTest" />
-        <item itemvalue="Spring Boot.ReggieApplication" />
-        <item itemvalue="Spring Boot.ReggieApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -248,7 +243,12 @@
       <workItem from="1691256155673" duration="995000" />
       <workItem from="1691308711159" duration="6405000" />
       <workItem from="1691321413324" duration="3000" />
-      <workItem from="1691338635341" duration="4702000" />
+      <workItem from="1691338635341" duration="4851000" />
+      <workItem from="1691370855515" duration="901000" />
+      <workItem from="1691374839291" duration="744000" />
+      <workItem from="1691385326521" duration="1407000" />
+      <workItem from="1691389340449" duration="641000" />
+      <workItem from="1691400575769" duration="1317000" />
     </task>
     <task id="LOCAL-00001" summary="初始化">
       <created>1664034214666</created>
@@ -390,7 +390,14 @@
       <option name="project" value="LOCAL" />
       <updated>1691315526442</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="完善项目中的功能！！！">
+      <created>1691343801831</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1691343801831</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -435,7 +442,8 @@
     <MESSAGE value="【补充】套餐管理-修改功能" />
     <MESSAGE value="1.默认地址&#10;2.移动端开发&#10;2.1 登入&#10;2.2 购物车" />
     <MESSAGE value="null" />
-    <option name="LAST_COMMIT_MESSAGE" value="null" />
+    <MESSAGE value="完善项目中的功能！！！" />
+    <option name="LAST_COMMIT_MESSAGE" value="完善项目中的功能！！！" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
