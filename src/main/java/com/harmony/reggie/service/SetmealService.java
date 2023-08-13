@@ -20,4 +20,6 @@ public interface SetmealService extends IService<Setmeal> {
     R<SetmealDishDto> getSetmealDish(Long id);
 
     R<String> updateSetmeal(SetmealDishDto setmealDishDto);
+
+    R<List<Setmeal>> selectSetmealList(Setmeal setmeal);
 }

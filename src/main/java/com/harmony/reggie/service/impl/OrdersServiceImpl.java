@@ -2,6 +2,7 @@ package com.harmony.reggie.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.harmony.reggie.common.BaseContext;
 import com.harmony.reggie.common.CustomException;
@@ -9,11 +10,13 @@ import com.harmony.reggie.common.R;
 import com.harmony.reggie.entity.*;
 import com.harmony.reggie.mapper.*;
 import com.harmony.reggie.service.*;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -32,6 +35,9 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
 
     @Autowired
     private OrderDetailMapper orderDetailMapper;
+
+    @Autowired
+    private OrdersMapper ordersMapper;
 
     @Override
     public R<String> submitOrder(Orders orders) {
@@ -96,7 +102,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                 + (addressBook.getDetail() == null ? "" : addressBook.getDetail()));
         this.save(orders);
 
-        //向订单明细表插入数据，多条数据
+        // 向订单明细表插入数据，多条数据
         for (OrderDetail orderDetail: orderDetails) {
             orderDetailMapper.insert(orderDetail);
         }
@@ -104,5 +110,20 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         // 清空购物车
         shoppingCartMapper.delete(shoppingCartLambdaQueryWrapper);
         return R.success("下单成功");
+    }
+
+    @Override
+    public Page<Orders> pageOrders(int page, int pageSize, String number, Date beginTime, Date endTime) {
+        // 根据以上信息进行分页查询。
+        // 创建分页对象
+        Page<Orders> pageInfo = new Page<>(page, pageSize);
+        // 创建查询条件对象。
+        LambdaQueryWrapper<Orders> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(StringUtils.isNotEmpty(number), Orders::getNumber, number);
+        if (beginTime != null) {
+            queryWrapper.between(Orders::getOrderTime, beginTime, endTime);
+        }
+        ordersMapper.selectPage(pageInfo, queryWrapper);
+        return pageInfo;
     }
 }
